@@ -1,6 +1,5 @@
 import os
 from math import ceil
-import requests
 
 class File:
     def __init__(self, chunkSize=50):
