@@ -33,9 +33,11 @@ Before getting to the code, the high-level steps to pushing data into Anaplan is
 ##### Multiple workspaceIds and modelIds can be used by doing one of the following:
 1. Change the ids directly:
     `anaplan.workspaceId = 'NewWorkspaceId'`
+    
     `anpalan.modelId = 'NewModelId'`
 2. Make new initialization of the connector:
     `anaplanModel1 = Connection(email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID',modelId='AnaplanModelID')`
+    
     `anaplanModel2 = Connection(email='email@example.com',password='SecurePassword2',workspaceId='anaplanWorkspaceID2',modelId='AnaplanModelID2')`
 
 #### Get a list of Workspaces
@@ -52,6 +54,7 @@ Before getting to the code, the high-level steps to pushing data into Anaplan is
 
 #### Load a file
 `anaplan.loadFile(filepath,fileId)`
+
 filepath = The local location and filename of the file to load (e.g. '/home/fileToLoad.csv')
 fileId = The Anaplan file ID which can be found by running one of the above commands
 
@@ -72,6 +75,7 @@ fileId = The Anaplan file ID which can be found by running one of the above comm
 
 #### Export data
 `anaplan.export(exportId, filepath, encoding='utf-8')`
+
 exportId = is Anaplan's Export ID that can be found with the above commands
 filepath = is the location and filename of where you want to save the file (e.g. '/home/export.csv')
 encoding (optional) = is the character encoding of the export file (default is utf-8)
