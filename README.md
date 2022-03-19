@@ -2,13 +2,13 @@
 
 ## This is a very early release! The documentation is still in process, but feel free to use this package. Thanks!
 
-#### Introduction
+## Introduction
 This is a simple Anaplan connector intended to be used as a quick and easy way to mainly integrate with Anaplan using Python. This package does not include all API options. It uses the main calls to push data to anaplan via files, call a process, and export data.
 
-#### Anaplan Integration Overview
+## Anaplan Integration Overview
 The method of pushing data to Anaplan is common in the data warehousing space. Instead of pushing data in a transaction api (i.e. record by record), Anaplan utilizes a bulk data API which includes pushing delimitted files to a file location, and then copying the file into an Anaplan database. This is similar to Postgres and Snowflake's `COPY INTO` command.
 
-<!-- #### Pushing Data Into Anaplan Overview
+<!-- ## Pushing Data Into Anaplan Overview
 Before getting to the code, the high-level steps to pushing data into Anaplan is as follows:
 1. Source the source data (e.g. ERP data) into a csv file
 2. Use the csv file to manually import the data into Anaplan. This will create a "file" reference and fileId within Anaplan.
@@ -21,7 +21,7 @@ Before getting to the code, the high-level steps to pushing data into Anaplan is
 **Notes:**
 - I intentially built the connector to only use processes and not the actions directly. It is my belief that it is best practice to use processes since it is much easier to expand the actions within Anaplan than to manage the processes within Python.
 
-#### Exporting Data from Anaplan -->
+## Exporting Data from Anaplan -->
 
 ## Command Summary
 #### Import anaplan connector
@@ -32,7 +32,7 @@ Before getting to the code, the high-level steps to pushing data into Anaplan is
 anaplan = Connection(email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID',modelId='AnaplanModelID')
 ```
 
-##### Multiple workspaceIds and modelIds can be used by doing one of the following:
+#### Multiple workspaceIds and modelIds can be used by doing one of the following:
 1. Change the ids directly:
     
     `anaplan.workspaceId = 'NewWorkspaceId'`
@@ -42,7 +42,7 @@ anaplan = Connection(email='email@example.com',password='SecurePassword',workspa
 ```
 anaplanModel1 = Connection(email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID',modelId='AnaplanModelID')
     
-anaplanModel2 = Connection(email='email@example.com',password='SecurePassword2',workspaceId='anaplanWorkspaceID2',modelId='AnaplanModelID2')
+anaplanModel2 = Connection(email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID2',modelId='AnaplanModelID2')
 ```
 
 #### Get a list of Workspaces
@@ -115,6 +115,6 @@ anaplan.export(anaplan.getExportIdByName('ExportedData.csv'), filepath)
 ```
 ## List of features that are currently being developed
 1. Certificate based authentication. This is my #1 priority right now. I'll be working on this as soon as I can get a little time.
-2. Python logging using `import logging`
+2. Python logging (using `import logging`) and code comments
 
 ## Additional Documentation in progress...

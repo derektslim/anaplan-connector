@@ -6,6 +6,7 @@ from time import sleep
 from anaplanConnector.auth import Auth
 from anaplanConnector.endpoints import Endpoints
 from anaplanConnector.file import File
+import logging
 
 from pprint import pprint
 
@@ -51,9 +52,12 @@ class Connection:
     
     def getProcessIdByName(self,processName):
         res = json.loads(self.getProcesses())
-        processId = list(filter(lambda x:x['name']==processName,res['processes']))[0]['id']
-        print(f'processId: {processId}')
-        return processId
+        try:
+            processId = list(filter(lambda x:x['name']==processName,res['processes']))[0]['id']
+            print(f'processId: {processId}')
+            return processId
+        except: 
+            logging.error(res)
 
     def runProcess(self,processId):
         print(f'Running process: {processId}...')
