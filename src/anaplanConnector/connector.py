@@ -11,14 +11,33 @@ import logging
 from pprint import pprint
 
 class Connection:
+
     def __init__(self,email,password,workspaceId=None,modelId=None):
+        self.endpoints = Endpoints(workspaceId=workspaceId,modelId=modelId)
         self.email = email
         self.password = password
-        self.workspaceId = workspaceId
-        self.modelId = modelId
         self.token = None
-        self.endpoints = Endpoints(workspaceId=workspaceId,modelId=modelId)
         self.file = File()
+        self._workspaceId = workspaceId
+        self._modelId = modelId
+    
+    @property
+    def workspaceId(self):
+        return self._workspaceId
+    
+    @workspaceId.setter
+    def workspaceId(self,workspaceId):
+        self._workspaceId = workspaceId
+        self.endpoints.workspaceId = workspaceId
+
+    @property
+    def modelId(self):
+        return self._modelId
+
+    @modelId.setter
+    def modelId(self,modelId):
+        self._modelId = modelId
+        self.endpoints.modelId = modelId
 
     def getToken(self):
         auth = Auth()
