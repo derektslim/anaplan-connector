@@ -112,7 +112,7 @@ class Connection:
             self.token = auth.certificateAuth(publicCertPath = self.publicCertPath, privateCertPath=self.privateCertPath)['tokenValue']
         self.authHeader = {'Authorization': f'AnaplanAuthToken {self.token}'}
 
-    def makeRequest(self, method:str, url:str, headers:dict={}, **kwargs) -> dict:
+    def makeRequest(self, method:str, url:str, headers:dict={}, json=True, **kwargs) -> dict:
         """Makes the request to the API
         
         Parameters
@@ -132,8 +132,11 @@ class Connection:
         if self.token == None:
             self.getToken()
         headers = {**self.authHeader, **headers}
-        res = requests.request(method,url,headers=headers,**kwargs).json()
-        return res
+        res = requests.request(method,url,headers=headers,**kwargs)
+        if json:
+            return res.json()
+        else:
+            return res.text
 
     def getWorkspaces(self, tenantDetails:bool=False) -> dict:
         """Gets a list of workspaces
@@ -328,7 +331,7 @@ class Connection:
             with open(filepath, "w", newline='', encoding=encoding) as file:
                 for chunk in chunks:
                     print(f'Downloading chunk: {str(int(chunk)+1)}')
-                    r = self.makeRequest('GET', self.endpoints.chunk(exportId,chunk), headers={'Content-Type' : 'application/json'})
+                    r = self.makeRequest('GET', self.endpoints.chunk(exportId,chunk), headers={'Content-Type' : 'application/json'}, json=False)
                     file.write(r)
             return 'Success'
         else: raise Exception('Export failed')
