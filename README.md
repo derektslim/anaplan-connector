@@ -28,9 +28,17 @@ Before getting to the code, the high-level steps to pushing data into Anaplan is
 `from anaplanConnector import Connection`
 
 #### Intialize the connection
+1. Basic authentication
 ```
-anaplan = Connection(email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID',modelId='AnaplanModelID')
+anaplan = Connection(authType='basic',email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID',modelId='AnaplanModelID')
 ```
+2. Certificate authentication
+```
+anaplan = Connection(authType='certificate', privateCertPath='./AnaplanPrivateKey.pem', publicCertPath='./AnaplanPublicKey.pem', workspaceId='anaplanWorkspaceID', modelId='AnaplanModelID')
+```
+
+There are two auth types: "basic" and "certificate". If basic is supplied, then the fields "email" and "password" are required. If "certificate" is supplied, then the fields "privateCertPath" and "publicCertPath" are required.
+
 
 #### Multiple workspaceIds and modelIds can be used by doing one of the following:
 1. Change the ids directly:
@@ -80,7 +88,7 @@ fileId = The Anaplan file ID which can be found by running one of the above comm
 `exportId = anaplan.getExportIdByName(exportName)`
 
 #### Export data
-`anaplan.export(exportId, filepath, encoding='utf-8')`
+`anaplan.export(exportId, filepath)`
 
 exportId = is Anaplan's Export ID that can be found with the above commands
 
@@ -94,7 +102,7 @@ encoding (optional) = is the character encoding of the export file (default is u
 ```
 from anaplanConnector import Connection
 
-anaplan = Connection(email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID',modelId='AnaplanModelID')
+anaplan = Connection(authType='basic',email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID',modelId='AnaplanModelID')
 
 filepath = '/tmp/dataToLoad.csv'
 
@@ -107,14 +115,11 @@ anaplan.runProcess(anaplan.getProcessIdByName('Import Data'))
 ```
 from anaplanConnector import Connection
 
-anaplan = Connection(email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID',modelId='AnaplanModelID')
+anaplan = Connection(authType='basic',email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID',modelId='AnaplanModelID')
 
 filepath = '/tmp/LocalExportedData.csv'
 
 anaplan.export(anaplan.getExportIdByName('ExportedData.csv'), filepath)
 ```
 ## List of features that are currently being developed
-1. Certificate based authentication. This is my #1 priority right now. I'll be working on this as soon as I can get a little time.
-2. Python logging (using `import logging`) and code comments
-
-## Additional Documentation in progress...
+1. Script to create the public and private pem keys from the .p12 file.

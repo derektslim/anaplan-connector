@@ -12,3 +12,5 @@ src/anaplanConnector.egg-info/SOURCES.txt
 src/anaplanConnector.egg-info/dependency_links.txt
 src/anaplanConnector.egg-info/requires.txt
 src/anaplanConnector.egg-info/top_level.txt
+test/test.py
+test/testCon.py
