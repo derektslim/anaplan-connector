@@ -257,7 +257,7 @@ class Connection:
         self.endpoints.fileId = fileId
         print(f'Uploading file {filepath} to Anaplan...')
         if self.file.chunkCount == 1:
-            return self.makeRequest('PUT', self.endpoints.file(), headers={'Content-Type' : 'application/octet-stream'}, data=self.file.getFileData())
+            return self.makeRequest('PUT', self.endpoints.file(), headers={'Content-Type' : 'application/octet-stream'}, data=self.file.getFileData(), json=False)
         else:
             # 1) Post chunk count
             data = { "chunkCount":self.file.chunkCount }

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: anaplanConnector
-Version: 0.0.6
+Version: 0.0.8
 Summary: Python package to manage integrations with Anaplan.
 Home-page: https://github.com/matt-budd/anaplan-connector
 Author: Matt Budd
