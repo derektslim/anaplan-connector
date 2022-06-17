@@ -23,6 +23,9 @@ class Endpoints:
     def runProcess(self, processId):
         return f'{self.api}/workspaces/{self.workspaceId}/models/{self.modelId}/processes/{processId}/tasks'
 
+    def processStatus(self, processId, taskId):
+        return f'{self.api}/workspaces/{self.workspaceId}/models/{self.modelId}/processes/{processId}/tasks/{taskId}'
+
     def chunk(self, fileId, chunkNum):
         return f'{self.api}/workspaces/{self.workspaceId}/models/{self.modelId}/files/{fileId}/chunks/{chunkNum}'
 

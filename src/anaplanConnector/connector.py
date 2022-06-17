@@ -236,7 +236,37 @@ class Connection:
             Anaplans json response converted to dict
         """
         print(f'Running process: {processId}...')
-        return self.makeRequest('POST', self.endpoints.runProcess(processId=processId), headers={'Content-Type' : 'application/json'}, data='{"localeName": "en_US"}')
+        process = self.makeRequest('POST', self.endpoints.runProcess(processId=processId), headers={'Content-Type' : 'application/json'}, data='{"localeName": "en_US"}')
+        if process['status']['code'] != 200: raise Exception(process)
+        taskId = process['task']['taskId']
+        while True:
+            sleep(2)
+            status = self.processStatus(processId, taskId)
+            print(f'% Complete: {round(status["task"]["progress"]*100,1)}% | Current Step: {status["task"]["currentStep"]}')
+            if status['task']['taskState'] == 'COMPLETE':
+                successful = status['task']['result']['successful']
+                break
+        if successful == True:
+            return status
+        else: raise Exception(status)
+            
+
+    def processStatus(self, processId:str, taskId:str) -> dict:
+        """Gets the status of a running process
+        
+        Parameters
+        ----------
+        processId : str
+            the ID of a process to run. If you do not have the ID, use the method getProcessIdByName(processName)
+        taskId : str
+            The ID of a process task. This id is returned from runProcess()
+        
+        Returns
+        -------
+        dict
+            Anaplan's json response converted to dict
+        """
+        return self.makeRequest('GET', self.endpoints.processStatus(processId, taskId), headers={'Content-Type' : 'application/json'})
     
     def loadFile(self, filepath:str, fileId:str) -> dict:
         """Uploads a local file to an Anaplan file
