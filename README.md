@@ -1,7 +1,5 @@
 # Simple Anaplan Connector Package
 
-## This is a very early release! The documentation is still in process, but feel free to use this package. Thanks!
-
 ## Introduction
 This is a simple Anaplan connector intended to be used as a quick and easy way to mainly integrate with Anaplan using Python. This package does not include all API options. It uses the main calls to push data to anaplan via files, call a process, and export data.
 
