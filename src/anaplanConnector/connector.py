@@ -242,7 +242,7 @@ class Connection:
         while True:
             sleep(2)
             status = self.processStatus(processId, taskId)
-            print(f'% Complete: {round(status["task"]["progress"]*100,1)}% | Current Step: {status["task"]["currentStep"]}')
+            print(f'% Complete: {round(status["task"]["progress"]*100,1)}% | Current Step: { status["task"]["currentStep"] if "currentStep" in status["task"] else "None" }')
             if status['task']['taskState'] == 'COMPLETE':
                 successful = status['task']['result']['successful']
                 break
