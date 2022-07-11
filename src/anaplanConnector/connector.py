@@ -291,13 +291,13 @@ class Connection:
         else:
             # 1) Post chunk count
             data = { "chunkCount":self.file.chunkCount }
-            self.makeRequest('POST', self.endpoints.file(), headers={'Content-Type' : 'application/octet-stream'}, data=json.dumps(data))
+            self.makeRequest('POST', self.endpoints.file(), headers={'Content-Type' : 'application/json'}, data=json.dumps(data))
             # 2) PUT each chunk
             print(f'Total Number of chunks: {self.file.chunkCount}')
             chunkNum = 0
             for chunk in self.file.fileChunks():
                 print(f'Loading chunk: {chunkNum+1}')
-                self.makeRequest('PUT', self.endpoints.chunk(fileId,chunkNum), headers={'Content-Type' : 'application/octet-stream'}, data=chunk)
+                self.makeRequest('PUT', self.endpoints.chunk(fileId,chunkNum), headers={'Content-Type' : 'application/octet-stream'}, data=chunk, json=False)
                 chunkNum += 1
 
     def getExports(self) -> dict:
