@@ -28,11 +28,11 @@ Before getting to the code, the high-level steps to pushing data into Anaplan is
 #### Intialize the connection
 1. Basic authentication
 ```
-anaplan = Connection(authType='basic',email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID',modelId='AnaplanModelID')
+anaplan = Connection(authType='basic', email='email@example.com', password='SecurePassword', modelId='AnaplanModelID')
 ```
 2. Certificate authentication
 ```
-anaplan = Connection(authType='certificate', privateCertPath='./AnaplanPrivateKey.pem', publicCertPath='./AnaplanPublicKey.pem', workspaceId='anaplanWorkspaceID', modelId='AnaplanModelID')
+anaplan = Connection(authType='certificate', privateCertPath='./AnaplanPrivateKey.pem', publicCertPath='./AnaplanPublicKey.pem', modelId='AnaplanModelID')
 ```
 
 There are two auth types: "basic" and "certificate". If basic is supplied, then the fields "email" and "password" are required. If "certificate" is supplied, then the fields "privateCertPath" and "publicCertPath" are required.
@@ -40,15 +40,13 @@ There are two auth types: "basic" and "certificate". If basic is supplied, then 
 
 #### Multiple workspaceIds and modelIds can be used by doing one of the following:
 1. Change the ids directly:
-    
-    `anaplan.workspaceId = 'NewWorkspaceId'`
-    
+        
     `anpalan.modelId = 'NewModelId'`
 2. Make new initialization of the connector:
 ```
-anaplanModel1 = Connection(email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID',modelId='AnaplanModelID')
+anaplanModel1 = Connection(email='email@example.com',password='SecurePassword',modelId='AnaplanModelID')
     
-anaplanModel2 = Connection(email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID2',modelId='AnaplanModelID2')
+anaplanModel2 = Connection(email='email@example.com',password='SecurePassword',modelId='AnaplanModelID2')
 ```
 
 #### Get a list of Workspaces
@@ -100,7 +98,7 @@ encoding (optional) = is the character encoding of the export file (default is u
 ```
 from anaplanConnector import Connection
 
-anaplan = Connection(authType='basic',email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID',modelId='AnaplanModelID')
+anaplan = Connection(authType='basic', email='email@example.com', password='SecurePassword', modelId='AnaplanModelID')
 
 filepath = '/tmp/dataToLoad.csv'
 
@@ -113,7 +111,7 @@ anaplan.runProcess(anaplan.getProcessIdByName('Import Data'))
 ```
 from anaplanConnector import Connection
 
-anaplan = Connection(authType='basic',email='email@example.com',password='SecurePassword',workspaceId='anaplanWorkspaceID',modelId='AnaplanModelID')
+anaplan = Connection(authType='basic', email='email@example.com', password='SecurePassword', modelId='AnaplanModelID')
 
 filepath = '/tmp/LocalExportedData.csv'
 
