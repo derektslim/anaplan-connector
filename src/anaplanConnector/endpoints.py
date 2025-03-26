@@ -1,10 +1,11 @@
 class Endpoints:
-    def __init__(self,workspaceId=None,modelId=None):
+    def __init__(self,modelId=None):
         self.modelId = modelId
         self.fileId = None
         self.auth = 'https://auth.anaplan.com'
         self.api = 'https://api.anaplan.com/2/0'
         self.token = f'{self.auth}/token/authenticate'
+        self.workspaces = f'{self.api}/workspaces'
 
     def models(self):
         return f'{self.api}/models'
