@@ -14,8 +14,6 @@ class Connection:
 
     Attributes
     ----------
-    workspaceId : str
-        Anaplan workspace ID
     modelId : str
         Anaplan model ID
     authType : str
@@ -52,8 +50,6 @@ class Connection:
             file path for the private key used with "certificate" auth type
         publicCertPath : str
             file path for the public key with "certificate" auth type
-        workspaceId : str
-            Anaplan workspace ID
         modelId : str
             Anaplan model ID
         """
@@ -61,10 +57,9 @@ class Connection:
         if authType not in ['basic','certificate']:
             raise Exception('Valid arguments for authType are "basic" or "certificate"')
         self.authType = authType
-        # if workspace and model IDs are provided
-        if 'workspaceId' in kwargs and 'modelId' in kwargs:
-            self.endpoints = Endpoints(workspaceId=kwargs['workspaceId'],modelId=kwargs['modelId'])
-            self._workspaceId = kwargs['workspaceId']
+        # if model IDs are provided
+        if 'modelId' in kwargs:
+            self.endpoints = Endpoints(modelId=kwargs['modelId'])
             self._modelId = kwargs['modelId']
         # check basic auth arguments
         if authType == 'basic':
@@ -81,15 +76,6 @@ class Connection:
         self.token = None
         self.file = File()
     
-    @property
-    def workspaceId(self) -> str:
-        return self._workspaceId
-    
-    @workspaceId.setter
-    def workspaceId(self,workspaceId):
-        self._workspaceId = workspaceId
-        self.endpoints.workspaceId = workspaceId
-
     @property
     def modelId(self) -> str:
         return self._modelId
